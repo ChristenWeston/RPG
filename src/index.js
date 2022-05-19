@@ -24,17 +24,13 @@ const changeState = (prop) => {
   };
 };
 
-const foodIncrease = changeState("foodPerDay")(1);
-const ageIncrease = changeState("maxAge")(2);
-const funnyIncrease = changeState("funny")(3);
-const healthDecrease = changeState("health")(-10);
-
 $(document).ready(function() {
   $("#monkey").hide();
   $("#cat").hide();
   $("#dog").hide();
   $("#owl").hide();
   let newAnimal;
+  let updateAnimal;
 
   $("#submit").click(function(event) {
     event.preventDefault();
@@ -80,43 +76,30 @@ $(document).ready(function() {
     $('#funny-value').text(`Funny: ${newAnimal.funny}`);
     $('#age-value').text(`Age: ${newAnimal.maxAge}`);
     $('#health-value').text(`Health: ${newAnimal.health}`);
+    updateAnimal = {...newAnimal}
 
   });
-  let updateAnimal = {...newAnimal}
+  
   $('#foodIncrease').click(function() {
-    //const newStateFood = {...newAnimal};
-   // const foodValue = newStateFood.foodPerDay + 1;
-   // newStateFood.foodPerDay = foodValue;
+   // prop value state
     updateAnimal = changeState("foodPerDay")(1)(updateAnimal)
     console.log(updateAnimal.foodPerDay);
     $('#food-value').text(`Food: ${updateAnimal.foodPerDay}`);
   });
 
   $('#ageIncrease').click(function() {
-    const newStateAge = newAnimal(ageIncrease);
-    $('#age-value').text(`Age: ${newStateAge.maxAge}`);
+    updateAnimal = changeState("maxAge")(1)(updateAnimal);
+    $('#age-value').text(`Age: ${updateAnimal.maxAge}`);
   });
 
   $('#funnyIncrease').click(function() {
-    //updateAnimal = {...updateAnimal, funny(funnyIncrease)};
-    const newStateFunny = newAnimal(funnyIncrease);
-    $('#funny-value').text(`Funny: ${newStateFunny.funny}`);
+    updateAnimal = changeState("funny")(1)(updateAnimal);
+    $('#funny-value').text(`Funny: ${updateAnimal.funny}`);
   });
 
   $('#healthDecrease').click(function() {
-    const newStateHealth = newAnimal(healthDecrease);
-    $('#health-value').text(`Health: ${newStateHealth.health}`);
+    updateAnimal = changeState("health")(-1)(updateAnimal);
+    $('#health-value').text(`Health: ${updateAnimal.health}`);
   });
-
-  // $('#show-state').click(function() {
-  //   console.log("Show state clicked");
-  //   const newStateFood = {...newAnimal};
-  //   console.log(newStateFood.foodPerDay)
-  //   console.log(newAnimal.health);
-  //   $('#food-value').text(`Food: ${newStateFood.foodPerDay}`);
-  //   $('#funny-value').text(`Funny: ${newStateFood.funny}`);
-  //   $('#age-value').text(`Age: ${newStateFood.maxAge}`);
-  //   $('#health-value').text(`Health: ${newStateFood.health}`);
-  // });
 
 });
